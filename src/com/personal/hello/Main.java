@@ -4,7 +4,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		System.out.println("'hllo");
+		System.out.println("hello");
+		//billgreen9进行了编辑
 		
 	}
 
