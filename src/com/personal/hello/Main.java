@@ -14,7 +14,7 @@ public class Main {
 			// fdfdf
 		}
 
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();//代码体积哦啊xianshagn
 		map.put("13312", 12321);
 
 		// dffdkjf 15:41///////
