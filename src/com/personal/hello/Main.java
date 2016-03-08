@@ -7,7 +7,7 @@ public class Main {
 		System.out.println("hejglo");
 		//billgreen9进行了编辑 14:50 xingagi
 		for (int i = 0; i < args.length; i++) {
-			
+			//
 		}
 
 	}
