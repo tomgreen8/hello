@@ -11,11 +11,13 @@ public class Main {
 		// billgreen915:41进行了jjdf辑 14:50 xingagi
 		for (int i = 0; i < args.length; i++) {// 15:23 15:24
 			// ////
-			// fdfdf
+			// fdfdf kllk----------------------------====
 		}
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("13312", 12321);//16:13
+
+		Map<String, Object> map = new HashMap<>();//代码体积哦啊xianshagn
+		map.put("13312", 12321);
+
 
 		// dffdkjf 15:41///////
 		//15:51
