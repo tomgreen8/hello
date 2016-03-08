@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {///mf
 		// tom8提交///
 		System.out.println("hejglo");
 		// billgreen915:41进行了jjdf辑 14:50 xingagi
