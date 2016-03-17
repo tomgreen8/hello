@@ -1,0 +1,1 @@
+nohup java -cp lib/*:. com.personal.hello.Main >nohup.out 2>&1 &
