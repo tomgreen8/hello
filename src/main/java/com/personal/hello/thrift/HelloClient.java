@@ -40,6 +40,7 @@ public class HelloClient {
 			String zkServer = p.getProperty("zookeeper");
 			consumer.init(zkServer, HelloServer.servers);
 			String server = getServer();
+			log.info("订阅服务："+server);
 			int port = Integer.parseInt(server.split(":")[1]);
 			if (args.length == 0 || args[0].contains("simple")) {
 				transport = new TSocket(server.split(":")[0], port);
