@@ -1,7 +1,11 @@
 package com.personal.hello.thrift;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.thrift.TException;
 import org.apache.thrift.transport.TSSLTransportFactory;
@@ -13,18 +17,32 @@ import org.apache.thrift.protocol.TProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.personal.hello.cluster.ServiceConsumer;
+
 public class HelloClient {
 	
 	private static final Logger log =LoggerFactory.getLogger(HelloClient.class);
 	
-	public static void main(String[] args) throws URISyntaxException {
-
+	private static final ServiceConsumer consumer = new ServiceConsumer();
+	
+	public static String getServer(){
+		return consumer.consume();
+	}
+	
+	public static void main(String[] args) throws URISyntaxException, FileNotFoundException, IOException {
 		try {
 			boolean secure = false;
 			TTransport transport;
 			log.info(""+args.length);
+			Properties p = new Properties();
+			String config = HelloServer.class.getResource("/").getPath() + "system.properties";
+			p.load(new FileInputStream(config));
+			String zkServer = p.getProperty("zookeeper");
+			consumer.init(zkServer, HelloServer.servers);
+			String server = getServer();
+			int port = Integer.parseInt(server.split(":")[1]);
 			if (args.length == 0 || args[0].contains("simple")) {
-				transport = new TSocket("localhost", 9090);
+				transport = new TSocket(server.split(":")[0], port);
 				transport.open();
 			} else {
 				secure = true;
@@ -44,7 +62,7 @@ public class HelloClient {
 				 * connection is opened on invocation of the factory method, no
 				 * need to specifically call open()
 				 */
-				transport = TSSLTransportFactory.getClientSocket("localhost", 9091, 0, params);
+				transport = TSSLTransportFactory.getClientSocket(server.split(":")[0], port, 0, params);
 			}
 
 			TProtocol protocol = new TBinaryProtocol(transport);

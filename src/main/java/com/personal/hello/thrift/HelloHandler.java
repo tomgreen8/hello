@@ -2,6 +2,7 @@ package com.personal.hello.thrift;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.thrift.TException;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.personal.hello.cluster.Registry;
 import com.personal.hello.thrift.Hello.Iface;
 
 /**
@@ -29,6 +31,7 @@ public class HelloHandler implements Hello.Iface {
 		context = new ClassPathXmlApplicationContext(new String[]{"classpath:applicationContext.xml"});
 		context.start();
 		jdbcTemplate = context.getBean(JdbcTemplate.class);
+		
 	}
 	
 	@Override

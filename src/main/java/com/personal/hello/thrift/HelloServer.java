@@ -3,15 +3,22 @@
  */
 package com.personal.hello.thrift;
 
+import java.io.FileInputStream;
+import java.net.InetAddress;
+import java.util.Properties;
+
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TServer.Args;
 import org.apache.thrift.server.TSimpleServer;
 import org.apache.thrift.server.TThreadPoolServer;
+import org.apache.thrift.server.TThreadedSelectorServer;
 import org.apache.thrift.transport.TSSLTransportFactory;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
 import org.apache.thrift.transport.TSSLTransportFactory.TSSLTransportParameters;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.personal.hello.cluster.Registry;
 
 /**
  * @author liuquan
@@ -20,11 +27,27 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class HelloServer {
 
 	private static HelloHandler handler;
+	public static final String servers = "/helloservers";
+
+	private static int port = 9090;
 
 	private static Hello.Processor processor;
 
 	public static void main(String[] args) {
 		try {
+			// /读取配置
+			Properties p = new Properties();
+			String config = HelloServer.class.getResource("/").getPath() + "system.properties";
+			p.load(new FileInputStream(config));
+			String zkServer = p.getProperty("zookeeper");
+			String port1 = p.getProperty("thrift.server.port");
+			String ip = p.getProperty("thrift.server.ip");
+			if (port1 != null) {
+				port = Integer.parseInt(port1);
+			}
+			String parent = servers;
+			String name = ip+":"+port;
+
 			handler = new HelloHandler();
 			processor = new Hello.Processor(handler);
 
@@ -35,12 +58,15 @@ public class HelloServer {
 			};
 			Runnable secure = new Runnable() {
 				public void run() {
-					 secure(processor);
+					secure(processor);
 				}
 			};
 
 			new Thread(simple).start();
 			new Thread(secure).start();
+
+			// 注册服务，实现集群
+			Registry.add(zkServer, parent, name);
 		} catch (Exception x) {
 			x.printStackTrace();
 		}
@@ -48,13 +74,12 @@ public class HelloServer {
 
 	public static void simple(Hello.Processor processor) {
 		try {
-			TServerTransport serverTransport = new TServerSocket(9090);
+			TServerTransport serverTransport = new TServerSocket(port);
 			TServer server = new TSimpleServer(new Args(serverTransport).processor(processor));
 
 			// Use this for a multithreaded server
 			// TServer server = new TThreadPoolServer(new
 			// TThreadPoolServer.Args(serverTransport).processor(processor));
-
 			System.out.println("Starting the simple server...");
 			server.serve();
 			System.out.println("server.serve() has called!");
@@ -73,7 +98,7 @@ public class HelloServer {
 			 */
 			TSSLTransportParameters params = new TSSLTransportParameters();
 			// The Keystore contains the private key
-			String path = HelloServer.class.getResource(".").toURI().getPath()+"kserver.keystore";
+			String path = HelloServer.class.getResource(".").toURI().getPath() + "kserver.keystore";
 			System.out.println(path);
 			params.setKeyStore(path, "thrift", null, null);
 
@@ -87,7 +112,7 @@ public class HelloServer {
 			 * Note: You need not explicitly call open(). The underlying server
 			 * socket is bound on return from the factory class.
 			 */
-			TServerTransport serverTransport = TSSLTransportFactory.getServerSocket(9091, 0, null, params);
+			TServerTransport serverTransport = TSSLTransportFactory.getServerSocket(port + 1, 0, null, params);
 			TServer server = new TSimpleServer(new Args(serverTransport).processor(processor));
 
 			// Use this for a multi threaded server
