@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.util.Properties;
 
 import org.apache.thrift.TProcessor;
+import org.apache.thrift.TProcessorFactory;
 import org.apache.thrift.protocol.TCompactProtocol;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TThreadedSelectorServer;
@@ -48,6 +49,7 @@ public class NonBlockHelloServer {
 
 			// 多线程半同步半异步
 			TThreadedSelectorServer.Args tArgs = new TThreadedSelectorServer.Args(serverTransport);
+			
 			tArgs.processor(tprocessor);
 			TFramedTransport.Factory f = new TFramedTransport.Factory();
 			tArgs.transportFactory(f);
