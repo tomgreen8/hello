@@ -29,7 +29,18 @@ public class HelloClient {
 		return consumer.consume();
 	}
 	
-	public static void main(String[] args) throws URISyntaxException, FileNotFoundException, IOException {
+	public static void main(String[] args) throws Exception  {
+		for (int i = 0; i < 2000; i++) {
+			test(args);
+			if(i==0){
+				Thread.sleep(2000);
+			}
+			Thread.sleep(6000);
+		}
+		
+	}
+	
+	public static void test(String[] args) throws Exception{
 		try {
 			boolean secure = false;
 			TTransport transport;
@@ -69,6 +80,7 @@ public class HelloClient {
 			TProtocol protocol = new TBinaryProtocol(transport);
 			Hello.Client client = new Hello.Client(protocol);
 			perform(client,secure);
+			
 			transport.close();
 		} catch (TException x) {
 			x.printStackTrace();

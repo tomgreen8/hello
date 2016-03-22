@@ -21,6 +21,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.personal.hello.cluster.Registry;
 
 /**
+ * 
+ * 单线程阻塞方式处理客户端请求
  * @author liuquan
  *
  */
@@ -41,7 +43,7 @@ public class HelloServer {
 			p.load(new FileInputStream(config));
 			String zkServer = p.getProperty("zookeeper");
 			String port1 = p.getProperty("thrift.server.port");
-			String ip = p.getProperty("thrift.server.ip");
+			String ip = p.getProperty("thrift.server.ip");//当前thirftserver的ip
 			if (port1 != null) {
 				port = Integer.parseInt(port1);
 			}

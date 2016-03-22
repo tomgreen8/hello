@@ -2,17 +2,12 @@ package com.personal.hello.thrift;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import org.apache.thrift.TException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import com.personal.hello.cluster.Registry;
-import com.personal.hello.thrift.Hello.Iface;
 
 /**
  * 实际的业务层
@@ -37,7 +32,7 @@ public class HelloHandler implements Hello.Iface {
 	@Override
 	public String helloString(String para) throws TException {
 		// TODO Auto-generated method stub
-		return null;
+		return para;
 	}
 
 	@Override

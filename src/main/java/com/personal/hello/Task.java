@@ -23,7 +23,7 @@ public class Task {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	@Scheduled(cron= "*/15 * * * * ?")
+	@Scheduled(cron= "* 2 1 * * ?")
 	public void execute(){
 		int count = jdbcTemplate.queryForObject("select count(1) from msgids", Integer.class);
 		log.info("hello!count:"+count);

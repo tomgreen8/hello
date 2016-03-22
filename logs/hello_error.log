@@ -21370,3 +21370,268 @@ Caused by: com.mchange.v2.resourcepool.ResourcePoolException: Attempted to use a
 	at com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:477)
 	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:525)
 	... 37 more
+[ERROR] [13:10:05] org.apache.thrift.server.AbstractNonblockingServer$FrameBuffer - Unexpected throwable while invoking!
+   org.springframework.jdbc.CannotGetJdbcConnectionException: Could not get JDBC Connection; nested exception is java.sql.SQLException: An SQLException was provoked by the following failure: com.mchange.v2.resourcepool.ResourcePoolException: Attempted to use a closed or broken resource pool
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:382)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:456)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:464)
+	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:472)
+	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:477)
+	at com.personal.hello.thrift.HelloHandler.helloMap(HelloHandler.java:72)
+	at com.personal.hello.thrift.Hello$Processor$helloMap.getResult(Hello.java:568)
+	at com.personal.hello.thrift.Hello$Processor$helloMap.getResult(Hello.java:1)
+	at org.apache.thrift.ProcessFunction.process(ProcessFunction.java:39)
+	at org.apache.thrift.TBaseProcessor.process(TBaseProcessor.java:39)
+	at org.apache.thrift.server.AbstractNonblockingServer$FrameBuffer.invoke(AbstractNonblockingServer.java:518)
+	at org.apache.thrift.server.Invocation.run(Invocation.java:18)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: java.sql.SQLException: An SQLException was provoked by the following failure: com.mchange.v2.resourcepool.ResourcePoolException: Attempted to use a closed or broken resource pool
+	at com.mchange.v2.sql.SqlUtils.toSQLException(SqlUtils.java:106)
+	at com.mchange.v2.sql.SqlUtils.toSQLException(SqlUtils.java:65)
+	at com.mchange.v2.sql.SqlUtils.toSQLException(SqlUtils.java:62)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:531)
+	at com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource.getConnection(AbstractPoolBackedDataSource.java:128)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:111)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:77)
+	... 15 more
+Caused by: com.mchange.v2.resourcepool.ResourcePoolException: Attempted to use a closed or broken resource pool
+	at com.mchange.v2.resourcepool.BasicResourcePool.ensureNotBroken(BasicResourcePool.java:1632)
+	at com.mchange.v2.resourcepool.BasicResourcePool.prelimCheckoutResource(BasicResourcePool.java:524)
+	at com.mchange.v2.resourcepool.BasicResourcePool.checkoutResource(BasicResourcePool.java:477)
+	at com.mchange.v2.c3p0.impl.C3P0PooledConnectionPool.checkoutPooledConnection(C3P0PooledConnectionPool.java:525)
+	... 18 more
+[ERROR] [14:01:37] org.apache.thrift.server.AbstractNonblockingServer$FrameBuffer - Unexpected throwable while invoking!
+   org.springframework.dao.RecoverableDataAccessException: StatementCallback; SQL [select  count(1) from `manager-user`]; Communications link failure
+
+The last packet successfully received from the server was 2,226 milliseconds ago.  The last packet sent successfully to the server was 2,226 milliseconds ago.; nested exception is com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 2,226 milliseconds ago.  The last packet sent successfully to the server was 2,226 milliseconds ago.
+	at org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:99)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:80)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:407)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:456)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:464)
+	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:472)
+	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:477)
+	at com.personal.hello.thrift.HelloHandler.helloMap(HelloHandler.java:72)
+	at com.personal.hello.thrift.Hello$Processor$helloMap.getResult(Hello.java:568)
+	at com.personal.hello.thrift.Hello$Processor$helloMap.getResult(Hello.java:1)
+	at org.apache.thrift.ProcessFunction.process(ProcessFunction.java:39)
+	at org.apache.thrift.TBaseProcessor.process(TBaseProcessor.java:39)
+	at org.apache.thrift.server.AbstractNonblockingServer$FrameBuffer.invoke(AbstractNonblockingServer.java:518)
+	at org.apache.thrift.server.Invocation.run(Invocation.java:18)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 2,226 milliseconds ago.  The last packet sent successfully to the server was 2,226 milliseconds ago.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:377)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:1036)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3427)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3327)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3814)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2435)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2582)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2526)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2484)
+	at com.mysql.jdbc.StatementImpl.executeQuery(StatementImpl.java:1446)
+	at com.mysql.jdbc.SQLError.convertShowWarningsToSQLWarnings(SQLError.java:714)
+	at com.mysql.jdbc.SQLError.convertShowWarningsToSQLWarnings(SQLError.java:666)
+	at com.mysql.jdbc.StatementImpl.getWarnings(StatementImpl.java:2299)
+	at com.mchange.v2.c3p0.impl.NewProxyStatement.getWarnings(NewProxyStatement.java:350)
+	at org.springframework.jdbc.core.JdbcTemplate.handleWarnings(JdbcTemplate.java:1326)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:397)
+	... 14 more
+Caused by: java.net.SocketException: Software caused connection abort: recv failed
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:173)
+	at java.net.SocketInputStream.read(SocketInputStream.java:122)
+	at com.mysql.jdbc.util.ReadAheadInputStream.fill(ReadAheadInputStream.java:100)
+	at com.mysql.jdbc.util.ReadAheadInputStream.readFromUnderlyingStreamIfNecessary(ReadAheadInputStream.java:143)
+	at com.mysql.jdbc.util.ReadAheadInputStream.read(ReadAheadInputStream.java:173)
+	at com.mysql.jdbc.MysqlIO.readFully(MysqlIO.java:2911)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3337)
+	... 27 more
+[ERROR] [14:02:09] org.apache.thrift.server.AbstractNonblockingServer$FrameBuffer - Unexpected throwable while invoking!
+   org.springframework.dao.RecoverableDataAccessException: StatementCallback; SQL [select  count(1) from `manager-user`]; Communications link failure
+
+The last packet successfully received from the server was 2,187 milliseconds ago.  The last packet sent successfully to the server was 2,187 milliseconds ago.; nested exception is com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 2,187 milliseconds ago.  The last packet sent successfully to the server was 2,187 milliseconds ago.
+	at org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:99)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:80)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:407)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:456)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:464)
+	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:472)
+	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:477)
+	at com.personal.hello.thrift.HelloHandler.helloMap(HelloHandler.java:72)
+	at com.personal.hello.thrift.Hello$Processor$helloMap.getResult(Hello.java:568)
+	at com.personal.hello.thrift.Hello$Processor$helloMap.getResult(Hello.java:1)
+	at org.apache.thrift.ProcessFunction.process(ProcessFunction.java:39)
+	at org.apache.thrift.TBaseProcessor.process(TBaseProcessor.java:39)
+	at org.apache.thrift.server.AbstractNonblockingServer$FrameBuffer.invoke(AbstractNonblockingServer.java:518)
+	at org.apache.thrift.server.Invocation.run(Invocation.java:18)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 2,187 milliseconds ago.  The last packet sent successfully to the server was 2,187 milliseconds ago.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:377)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:1036)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3427)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3327)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3814)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2435)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2582)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2526)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2484)
+	at com.mysql.jdbc.StatementImpl.executeQuery(StatementImpl.java:1446)
+	at com.mysql.jdbc.SQLError.convertShowWarningsToSQLWarnings(SQLError.java:714)
+	at com.mysql.jdbc.SQLError.convertShowWarningsToSQLWarnings(SQLError.java:666)
+	at com.mysql.jdbc.StatementImpl.getWarnings(StatementImpl.java:2299)
+	at com.mchange.v2.c3p0.impl.NewProxyStatement.getWarnings(NewProxyStatement.java:350)
+	at org.springframework.jdbc.core.JdbcTemplate.handleWarnings(JdbcTemplate.java:1326)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:397)
+	... 14 more
+Caused by: java.net.SocketException: Software caused connection abort: recv failed
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:173)
+	at java.net.SocketInputStream.read(SocketInputStream.java:122)
+	at com.mysql.jdbc.util.ReadAheadInputStream.fill(ReadAheadInputStream.java:100)
+	at com.mysql.jdbc.util.ReadAheadInputStream.readFromUnderlyingStreamIfNecessary(ReadAheadInputStream.java:143)
+	at com.mysql.jdbc.util.ReadAheadInputStream.read(ReadAheadInputStream.java:173)
+	at com.mysql.jdbc.MysqlIO.readFully(MysqlIO.java:2911)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3337)
+	... 27 more
+[ERROR] [14:02:09] org.apache.thrift.server.AbstractNonblockingServer$FrameBuffer - Unexpected throwable while invoking!
+   org.springframework.dao.RecoverableDataAccessException: StatementCallback; SQL [select  count(1) from `manager-user`]; Communications link failure
+
+The last packet successfully received from the server was 2,188 milliseconds ago.  The last packet sent successfully to the server was 2,188 milliseconds ago.; nested exception is com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 2,188 milliseconds ago.  The last packet sent successfully to the server was 2,188 milliseconds ago.
+	at org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:99)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:80)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:407)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:456)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:464)
+	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:472)
+	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:477)
+	at com.personal.hello.thrift.HelloHandler.helloMap(HelloHandler.java:72)
+	at com.personal.hello.thrift.Hello$Processor$helloMap.getResult(Hello.java:568)
+	at com.personal.hello.thrift.Hello$Processor$helloMap.getResult(Hello.java:1)
+	at org.apache.thrift.ProcessFunction.process(ProcessFunction.java:39)
+	at org.apache.thrift.TBaseProcessor.process(TBaseProcessor.java:39)
+	at org.apache.thrift.server.AbstractNonblockingServer$FrameBuffer.invoke(AbstractNonblockingServer.java:518)
+	at org.apache.thrift.server.Invocation.run(Invocation.java:18)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 2,188 milliseconds ago.  The last packet sent successfully to the server was 2,188 milliseconds ago.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:377)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:1036)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3427)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3327)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3814)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2435)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2582)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2526)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2484)
+	at com.mysql.jdbc.StatementImpl.executeQuery(StatementImpl.java:1446)
+	at com.mysql.jdbc.SQLError.convertShowWarningsToSQLWarnings(SQLError.java:714)
+	at com.mysql.jdbc.SQLError.convertShowWarningsToSQLWarnings(SQLError.java:666)
+	at com.mysql.jdbc.StatementImpl.getWarnings(StatementImpl.java:2299)
+	at com.mchange.v2.c3p0.impl.NewProxyStatement.getWarnings(NewProxyStatement.java:350)
+	at org.springframework.jdbc.core.JdbcTemplate.handleWarnings(JdbcTemplate.java:1326)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:397)
+	... 14 more
+Caused by: java.net.SocketException: Software caused connection abort: recv failed
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:173)
+	at java.net.SocketInputStream.read(SocketInputStream.java:122)
+	at com.mysql.jdbc.util.ReadAheadInputStream.fill(ReadAheadInputStream.java:100)
+	at com.mysql.jdbc.util.ReadAheadInputStream.readFromUnderlyingStreamIfNecessary(ReadAheadInputStream.java:143)
+	at com.mysql.jdbc.util.ReadAheadInputStream.read(ReadAheadInputStream.java:173)
+	at com.mysql.jdbc.MysqlIO.readFully(MysqlIO.java:2911)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3337)
+	... 27 more
+[ERROR] [14:02:09] org.apache.thrift.server.AbstractNonblockingServer$FrameBuffer - Unexpected throwable while invoking!
+   org.springframework.dao.RecoverableDataAccessException: StatementCallback; SQL [select  count(1) from `manager-user`]; Communications link failure
+
+The last packet successfully received from the server was 2,233 milliseconds ago.  The last packet sent successfully to the server was 2,233 milliseconds ago.; nested exception is com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 2,233 milliseconds ago.  The last packet sent successfully to the server was 2,233 milliseconds ago.
+	at org.springframework.jdbc.support.SQLExceptionSubclassTranslator.doTranslate(SQLExceptionSubclassTranslator.java:99)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:80)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:407)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:456)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:464)
+	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:472)
+	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:477)
+	at com.personal.hello.thrift.HelloHandler.helloMap(HelloHandler.java:72)
+	at com.personal.hello.thrift.Hello$Processor$helloMap.getResult(Hello.java:568)
+	at com.personal.hello.thrift.Hello$Processor$helloMap.getResult(Hello.java:1)
+	at org.apache.thrift.ProcessFunction.process(ProcessFunction.java:39)
+	at org.apache.thrift.TBaseProcessor.process(TBaseProcessor.java:39)
+	at org.apache.thrift.server.AbstractNonblockingServer$FrameBuffer.invoke(AbstractNonblockingServer.java:518)
+	at org.apache.thrift.server.Invocation.run(Invocation.java:18)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 2,233 milliseconds ago.  The last packet sent successfully to the server was 2,233 milliseconds ago.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:377)
+	at com.mysql.jdbc.SQLError.createCommunicationsException(SQLError.java:1036)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3427)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3327)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3814)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2435)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2582)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2526)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2484)
+	at com.mysql.jdbc.StatementImpl.executeQuery(StatementImpl.java:1446)
+	at com.mysql.jdbc.SQLError.convertShowWarningsToSQLWarnings(SQLError.java:714)
+	at com.mysql.jdbc.SQLError.convertShowWarningsToSQLWarnings(SQLError.java:666)
+	at com.mysql.jdbc.StatementImpl.getWarnings(StatementImpl.java:2299)
+	at com.mchange.v2.c3p0.impl.NewProxyStatement.getWarnings(NewProxyStatement.java:350)
+	at org.springframework.jdbc.core.JdbcTemplate.handleWarnings(JdbcTemplate.java:1326)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:397)
+	... 14 more
+Caused by: java.net.SocketException: Software caused connection abort: recv failed
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:173)
+	at java.net.SocketInputStream.read(SocketInputStream.java:122)
+	at com.mysql.jdbc.util.ReadAheadInputStream.fill(ReadAheadInputStream.java:100)
+	at com.mysql.jdbc.util.ReadAheadInputStream.readFromUnderlyingStreamIfNecessary(ReadAheadInputStream.java:143)
+	at com.mysql.jdbc.util.ReadAheadInputStream.read(ReadAheadInputStream.java:173)
+	at com.mysql.jdbc.MysqlIO.readFully(MysqlIO.java:2911)
+	at com.mysql.jdbc.MysqlIO.reuseAndReadPacket(MysqlIO.java:3337)
+	... 27 more
