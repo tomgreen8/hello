@@ -23,7 +23,7 @@ import com.personal.hello.thrift.Hello.AsyncClient.helloMap_call;
  * 客户端调用
  * 非阻塞
  */
-public class NonBlockClient {
+public class NonBlockSelectorClient {
     public static final String SERVER_IP = "127.0.0.1";
     public static int port = 8080;
     public static final int TIMEOUT = 30000;
@@ -56,7 +56,7 @@ public class NonBlockClient {
     
     
     /**
-     * 异步调用
+     * 异步调用,与同步调用不要放在一块，目前有些问题,见Client类
      * @throws Exception
      */
     public static void main_asy() throws Exception {
@@ -68,8 +68,25 @@ public class NonBlockClient {
             Hello.AsyncClient asyncClient = new Hello.AsyncClient(protocol, clientManager, transport);  
             System.out.println("Client calls .....");  
            
-            MyCallback<helloMap_call> callBack = new MyCallback<helloMap_call>();  
-            asyncClient.helloMap("zhangsan", callBack);
+            AsyncMethodCallback<helloMap_call> callback = new AsyncMethodCallback<com.personal.hello.thrift.Hello.AsyncClient.helloMap_call>() {
+
+				@Override
+				public void onComplete(com.personal.hello.thrift.Hello.AsyncClient.helloMap_call response) {
+					Hello.AsyncClient.helloMap_call res = (Hello.AsyncClient.helloMap_call)response;
+		    		try {
+						System.out.println("onComplete:"+res.getResult().toString());
+						//TAsyncMethodCall t =null;
+					} catch (TException e) {
+						e.printStackTrace();
+					}
+				}
+
+				@Override
+				public void onError(Exception exception) {
+					System.out.println("error:");
+				}
+			};
+            asyncClient.helloMap("zhangsan", callback);
         } catch (IOException e) {  
             e.printStackTrace();  
         }finally{
@@ -79,28 +96,6 @@ public class NonBlockClient {
         }
     } 
     
-  static  class MyCallback<helloMap_call> implements AsyncMethodCallback<helloMap_call> {
-
-    	@Override
-    	public void onComplete(helloMap_call response) {
-    		Hello.AsyncClient.helloMap_call res = (Hello.AsyncClient.helloMap_call)response;
-    		try {
-				System.out.println("onComplete:"+res.getResult().toString());
-				//TAsyncMethodCall t =null;
-			} catch (TException e) {
-				e.printStackTrace();
-			}
-    	}
-
-    	@Override
-    	public void onError(Exception exception) {
-    		System.out.println("error:");
-    		
-    	}
-        
-    } 
-    
- 
 }
 
  

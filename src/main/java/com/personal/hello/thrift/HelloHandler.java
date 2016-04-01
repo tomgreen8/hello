@@ -31,19 +31,19 @@ public class HelloHandler implements Hello.Iface {
 	
 	@Override
 	public String helloString(String para) throws TException {
-		// TODO Auto-generated method stub
+		log.info("服务端:"+para);
 		return para;
 	}
 
 	@Override
 	public int helloInt(int para) throws TException {
-		// TODO Auto-generated method stub
+		log.info("服务端:"+para);
 		return 0;
 	}
 
 	@Override
 	public boolean helloBoolean(boolean para) throws TException {
-		// TODO Auto-generated method stub
+		log.info("服务端:"+para);
 		return false;
 	}
 
@@ -55,8 +55,8 @@ public class HelloHandler implements Hello.Iface {
 
 	@Override
 	public String helloNull() throws TException {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("服务端:");
+		return "afs";
 	}
 
 	@Override

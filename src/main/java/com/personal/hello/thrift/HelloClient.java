@@ -21,7 +21,7 @@ import com.personal.hello.cluster.ServiceConsumer;
 
 public class HelloClient {
 	
-	private static final Logger log =LoggerFactory.getLogger(HelloClient.class);
+	private static final Logger log = LoggerFactory.getLogger(HelloClient.class);
 	
 	private static final ServiceConsumer consumer = new ServiceConsumer();
 	
@@ -48,10 +48,13 @@ public class HelloClient {
 			Properties p = new Properties();
 			String config = HelloServer.class.getResource("/").getPath() + "system.properties";
 			p.load(new FileInputStream(config));
+			
+			///获取server
 			String zkServer = p.getProperty("zookeeper");
 			consumer.init(zkServer, HelloServer.servers);
 			String server = getServer();
 			log.info("订阅服务："+server);
+			
 			int port = Integer.parseInt(server.split(":")[1]);
 			if (args.length == 0 || args[0].contains("simple")) {
 				transport = new TSocket(server.split(":")[0], port);

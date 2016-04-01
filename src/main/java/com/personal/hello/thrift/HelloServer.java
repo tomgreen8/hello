@@ -16,6 +16,8 @@ import org.apache.thrift.transport.TSSLTransportFactory;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
 import org.apache.thrift.transport.TSSLTransportFactory.TSSLTransportParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.personal.hello.cluster.Registry;
@@ -30,7 +32,7 @@ public class HelloServer {
 
 	private static HelloHandler handler;
 	public static final String servers = "/helloservers";
-
+	private static final Logger log = LoggerFactory.getLogger(HelloServer.class);
 	private static int port = 9090;
 
 	private static Hello.Processor processor;
@@ -49,7 +51,7 @@ public class HelloServer {
 			}
 			String parent = servers;
 			String name = ip+":"+port;
-
+			
 			handler = new HelloHandler();
 			processor = new Hello.Processor(handler);
 
@@ -69,6 +71,7 @@ public class HelloServer {
 
 			// 注册服务，实现集群
 			Registry.add(zkServer, parent, name);
+			log.info("thrift启动地址:"+name+",注册的zookeeper："+zkServer);;
 		} catch (Exception x) {
 			x.printStackTrace();
 		}

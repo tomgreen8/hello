@@ -20,7 +20,7 @@ import com.personal.hello.cluster.Registry;
  * @author liuquan
  *
  */
-public class NonBlockHelloServer {
+public class NonBlockSelectorServer {
 
 	private static HelloHandler handler;
 	public static final String servers = "/helloservers";
@@ -46,16 +46,13 @@ public class NonBlockHelloServer {
 			TProcessor tprocessor = new Hello.Processor<Hello.Iface>(handler);
 			// 传输通道 - 非阻塞方式
 			TNonblockingServerSocket serverTransport = new TNonblockingServerSocket(port);
-
-			// 多线程半同步半异步
 			TThreadedSelectorServer.Args tArgs = new TThreadedSelectorServer.Args(serverTransport);
-			
 			tArgs.processor(tprocessor);
 			TFramedTransport.Factory f = new TFramedTransport.Factory();
 			tArgs.transportFactory(f);
 			// 二进制协议
 			tArgs.protocolFactory(new TCompactProtocol.Factory());
-			// 多线程半同步半异步的服务模型
+			// 多线程非阻塞模型
 			TServer server = new TThreadedSelectorServer(tArgs);
 			System.out.println("Hello TThreadedSelectorServer....");
 			server.serve(); // 启动服务
