@@ -24,7 +24,7 @@ public class NonBlockSelectorServer {
 
 	private static HelloHandler handler;
 	public static final String servers = "/helloservers";
-	private static int port = 9090;
+	private static int port = 8080;
 
 	public static void main(String[] args) {
 		try {

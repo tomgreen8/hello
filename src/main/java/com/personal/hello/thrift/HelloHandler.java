@@ -2,6 +2,7 @@ package com.personal.hello.thrift;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.thrift.TException;
 import org.slf4j.Logger;
@@ -32,6 +33,12 @@ public class HelloHandler implements Hello.Iface {
 	@Override
 	public String helloString(String para) throws TException {
 		log.info("服务端:"+para);
+		Random r = new Random();
+		try {
+			Thread.sleep(r.nextInt(1000));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return para;
 	}
 
@@ -65,6 +72,12 @@ public class HelloHandler implements Hello.Iface {
 		Map<Integer, String> map = new HashMap<Integer, String>();
 		map.put(1, u);
 		int count = jdbcTemplate.queryForObject("select  count(1) from `manager-user`", Integer.class);
+		Random r = new Random();
+		try {
+			Thread.sleep(r.nextInt(300));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		log.info("处理完毕！"+count);
 		return map;
 	}

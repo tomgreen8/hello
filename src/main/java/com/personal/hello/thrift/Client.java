@@ -26,7 +26,8 @@ import com.personal.hello.thrift.Hello.AsyncClient.helloString_call;
 import com.personal.hello.thrift.Hello.helloString_result;
 
 /**
- * 客户端调用 ，可以连接到Server与NonBlockSelectorServer
+ * 客户端调用 ，可以连接到Server与NonBlockSelectorServer,
+ * 不能连接BlockThreadPoolServer
  */
 public class Client {
 	public static final String address = "127.0.0.1";
@@ -132,13 +133,15 @@ public class Client {
 
 	/**
 	 * 客户端同步调用和异步调用最后不要在一块使用，目前会有问题，没有找到解决办法！不知道是什么原因!
+	 * 大概是由于同一时刻只有一个客户端连接正在处理？好像不是(有可能是两个transport实际上指向的是一个
+	 * 地址导致异步调用使用了同步调用关掉的连接造成的)
 	 * @param args
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
 		main_asy();
+	
 		main_syn();
-		
 	//	Thread.sleep(1000);//保证异步方法的日志能够打印出来
 	}
 }
