@@ -27,7 +27,7 @@ public class ThrfitServer {
 	
 	private static HelloHandler handler;
 	public static final String servers = "/ThrfitServer";
-	private static int port = 9090;
+	private static int port = 8080;
 
 	public static void main(String[] args) {
 		try {
@@ -74,10 +74,10 @@ public class ThrfitServer {
 			// 多线程非阻塞模型
 			TServer server = new TThreadedSelectorServer(tArgs);
 			System.out.println("Hello TMultiplexedProcessor TThreadedSelectorServer....");
-			server.serve(); // 启动服务
-
 			// 注册服务，实现集群
 			Registry.add(zkServer, parent, name);
+			server.serve(); // 启动服务
+
 		} catch (Exception x) {
 			x.printStackTrace();
 		}
